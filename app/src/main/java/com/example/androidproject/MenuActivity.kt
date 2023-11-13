@@ -34,8 +34,8 @@ class MenuActivity : AppCompatActivity() {
     }
 
     private fun navigateToTodoView() {
-        val intent = Intent(this, TodoActivity::class.java)
-        startActivity(intent)
+//        val intent = Intent(this, TodoActivity::class.java)
+        startActivity(Intent(this, TodoActivity::class.java))
     }
 
 

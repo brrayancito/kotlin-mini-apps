@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">AndroidProject</string>
+
+    <!--    IMC -->
     <string name="male">Hombre</string>
     <string name="female">Mujer</string>
     <string name="height">Altura</string>
@@ -8,22 +10,21 @@
     <string name="calculate">Calcular</string>
     <string name="re_calculate">Volver a Calcular</string>
     <string name="result">Tu resultado</string>
-
     <string name="IMC_result">Tu resultado</string>
     <string name="IMC_description">Tu resultado</string>
     <string name="error">ERROR</string>
-
     <string name="IMC_underweight_title">Peso Bajo</string>
     <string name="IMC_underweight_description">Tienes un peso por debajo de lo normal. ¡Come un poquito más!</string>
-
     <string name="IMC_normal_weight_title">Peso Normal</string>
     <string name="IMC_normal_weight_description">Tienes un peso normal. ¡Sigue así!</string>
-
     <string name="IMC_overweight_title">Peso Alto</string>
     <string name="IMC_overweight_description">Tienes un peso por encima de lo normal. ¡Para el pico!</string>
-
     <string name="IMC_obesity_title">Obesidad</string>
     <string name="IMC_obesity_description">Tienes Obesidad. ¡Estás que explotas!</string>
+
+    <!--    TODO -->
+    <string name="TODO_title">Mis tareas...</string>
+    <string name="TODO_categories">categorías</string>
 
 
 </resources>
