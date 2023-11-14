@@ -25,6 +25,7 @@
     <!--    TODO -->
     <string name="TODO_title">Mis tareas...</string>
     <string name="TODO_categories">categorías</string>
+    <string name="TODO_tasks">Tareas</string>
 
 
 </resources>
