@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidproject.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class TodoActivity : AppCompatActivity() {
 
@@ -26,6 +27,8 @@ class TodoActivity : AppCompatActivity() {
     private lateinit var rvTasks: RecyclerView
     private lateinit var taskAdapter: TasksAdapter
 
+    private lateinit var fabAddTask: FloatingActionButton
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,11 +36,17 @@ class TodoActivity : AppCompatActivity() {
 
         initComponents()
         initUI()
+        initListeners()
     }
 
     private fun initComponents() {
         rvCategory = findViewById(R.id.rvCategories)
         rvTasks = findViewById(R.id.rvTasks)
+        fabAddTask = findViewById(R.id.fabAddTask)
+    }
+
+    private fun initListeners(){
+        fabAddTask.setOnClickListener {}
     }
 
     private fun initUI() {
