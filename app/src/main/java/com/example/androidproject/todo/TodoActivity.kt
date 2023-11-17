@@ -84,16 +84,31 @@ class TodoActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
-        categoriesAdapter = CategoriesAdapter(categories)
+        categoriesAdapter = CategoriesAdapter(categories) { position -> onSelectedCategory(position)}
         rvCategory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvCategory.adapter = categoriesAdapter
 
-        taskAdapter = TasksAdapter(tasks)
+        taskAdapter = TasksAdapter(tasks) {position -> onSelectedTask(position)}
         rvTasks.layoutManager = LinearLayoutManager(this)
         rvTasks.adapter = taskAdapter
     }
 
+    private fun onSelectedTask(position: Int){
+        tasks[position].isSelected = !tasks[position].isSelected
+        updateViewTasks()
+    }
+
+    private fun onSelectedCategory(position: Int){
+        categories[position].isSelected = !categories[position].isSelected
+        categoriesAdapter.notifyItemChanged(position)
+        updateViewTasks()
+    }
+
     private fun updateViewTasks() {
+        val selectedCategories: List<TaskCategory> = categories.filter {it.isSelected}
+        val tasksToShow = tasks.filter {  task -> selectedCategories.contains(task.category) }
+        taskAdapter.tasks = tasksToShow
+
         taskAdapter.notifyDataSetChanged()
     }
 }

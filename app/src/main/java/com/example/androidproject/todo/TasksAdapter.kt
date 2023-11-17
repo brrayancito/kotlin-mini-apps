@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidproject.R
 
-class TasksAdapter(private val tasks: List<Task>) : RecyclerView.Adapter<TasksViewHolder>() {
+class TasksAdapter(var tasks: List<Task>, private val onSeletedItem: (Int) -> Unit) :
+    RecyclerView.Adapter<TasksViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_todo_task, parent, false)
@@ -16,6 +17,7 @@ class TasksAdapter(private val tasks: List<Task>) : RecyclerView.Adapter<TasksVi
 
     override fun onBindViewHolder(holder: TasksViewHolder, position: Int) {
         holder.render(tasks[position])
+        holder.itemView.setOnClickListener {onSeletedItem(position)}
     }
 
 }
