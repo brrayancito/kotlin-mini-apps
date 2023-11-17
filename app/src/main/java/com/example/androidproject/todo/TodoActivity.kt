@@ -1,7 +1,12 @@
 package com.example.androidproject.todo
 
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidproject.R
@@ -15,7 +20,7 @@ class TodoActivity : AppCompatActivity() {
         TaskCategory.Personal
     )
 
-    private  val tasks = mutableListOf(
+    private val tasks = mutableListOf(
         Task("Tarea Personal", TaskCategory.Personal),
         Task("Tarea de Negocios", TaskCategory.Business),
         Task("Otra Tarea", TaskCategory.Other)
@@ -45,8 +50,37 @@ class TodoActivity : AppCompatActivity() {
         fabAddTask = findViewById(R.id.fabAddTask)
     }
 
-    private fun initListeners(){
-        fabAddTask.setOnClickListener {}
+    private fun initListeners() {
+        fabAddTask.setOnClickListener { showDialog() }
+    }
+
+    private fun showDialog() {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_task)
+        val btnAddTask: Button = dialog.findViewById(R.id.btnAddTask)
+        val etTask: EditText = dialog.findViewById(R.id.etTask)
+        val rgCategories: RadioGroup = dialog.findViewById(R.id.rgTaskCategories)
+
+        btnAddTask.setOnClickListener {
+            val taskTitle: String = etTask.text.toString()
+            if (taskTitle.isNotEmpty()) {
+                val selectedID = rgCategories.checkedRadioButtonId
+                val selectedRadioButton: RadioButton = rgCategories.findViewById(selectedID)
+                val currentTaskCategory: TaskCategory = when (selectedRadioButton.text) {
+                    getString(R.string.TODO_dialog_cat_business_title) -> TaskCategory.Business
+                    getString(R.string.TODO_dialog_cat_personal_title) -> TaskCategory.Personal
+                    else -> TaskCategory.Other
+                }
+
+                // Add task
+                tasks.add(Task(taskTitle, currentTaskCategory))
+                updateViewTasks()
+                dialog.hide()
+            }
+
+        }
+
+        dialog.show()
     }
 
     private fun initUI() {
@@ -57,5 +91,9 @@ class TodoActivity : AppCompatActivity() {
         taskAdapter = TasksAdapter(tasks)
         rvTasks.layoutManager = LinearLayoutManager(this)
         rvTasks.adapter = taskAdapter
+    }
+
+    private fun updateViewTasks() {
+        taskAdapter.notifyDataSetChanged()
     }
 }

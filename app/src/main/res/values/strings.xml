@@ -26,6 +26,11 @@
     <string name="TODO_title">Mis tareas...</string>
     <string name="TODO_categories">categorías</string>
     <string name="TODO_tasks">Tareas</string>
+    <string name="TODO_dialog_add_task">Nueva tarea...</string>
+
+    <string name="TODO_dialog_cat_business_title">Negocios</string>
+    <string name="TODO_dialog_cat_personal_title">Personal</string>
+    <string name="TODO_dialog_cat_others_title">Otros</string>
 
 
 </resources>
