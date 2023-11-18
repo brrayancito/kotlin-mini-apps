@@ -18,12 +18,18 @@
         android:id="@+id/btnIMC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="IMC -APP" />
+        android:text="IMC - APP" />
 
     <Button
         android:id="@+id/btnTODO"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TODO -APP" />
+        android:text="TODO - APP" />
+
+    <Button
+        android:id="@+id/btnSuperhero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Super Hero - APP" />
 
 </LinearLayout>
