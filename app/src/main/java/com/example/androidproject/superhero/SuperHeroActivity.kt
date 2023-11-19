@@ -4,7 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.widget.SearchView
-import com.example.androidproject.R
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidproject.databinding.ActivitySuperHeroBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,8 +17,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class SuperHeroActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySuperHeroBinding
-
     private lateinit var retrofit: Retrofit
+
+    private lateinit var superheroAdapter: SuperheroAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,20 +36,33 @@ class SuperHeroActivity : AppCompatActivity() {
                 return false
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-
+            override fun onQueryTextChange(newText: String?) = false
         })
+
+        superheroAdapter = SuperheroAdapter()
+        binding.rvSuperheroList.setHasFixedSize(true)
+        binding.rvSuperheroList.layoutManager = LinearLayoutManager(this)
+        binding.rvSuperheroList.adapter = superheroAdapter
     }
 
     private fun searchByName(heroName: String) {
+        binding.loading.isVisible = true
+
         CoroutineScope(Dispatchers.IO).launch {
             val res: Response<SuperheroDataResponse> =
                 retrofit.create(ApiService::class.java).getSuperheroes(heroName)
 
             if (res.isSuccessful) {
-                Log.i("msg", "It works")
+                val response: SuperheroDataResponse? = res.body()
+                Log.i("msg", response.toString())
+
+                if (response != null) {
+                runOnUiThread {
+                    superheroAdapter.updateSuperheroList(response.superheroes)
+                    binding.loading.isVisible = false
+                }
+                }
+
             } else {
                 Log.i("msg", "It doesn't work")
             }
@@ -61,4 +76,5 @@ class SuperHeroActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
 }
