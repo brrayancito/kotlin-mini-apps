@@ -31,4 +31,10 @@
     <color name="todo_business_category">#FF9800</color>
     <color name="todo_personal_category">#00BCD4</color>
     <color name="todo_other_category">#FFFFFF</color>
+
+<!--    Superhero - App-->
+    <color name="superhero_item_name">#85423AB7</color>
+
+
+
 </resources>
