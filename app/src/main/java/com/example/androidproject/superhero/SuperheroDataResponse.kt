@@ -7,6 +7,7 @@ data class SuperheroDataResponse(
     @SerializedName("results-for") val resultsFor: String,
     @SerializedName("results") val superheroes: List<SuperHero>
 )
+
 data class SuperHero(
     @SerializedName("id") val id: String,
     @SerializedName("name") val name: String,
@@ -14,5 +15,5 @@ data class SuperHero(
 )
 
 data class SuperHeroImage(
-    @SerializedName("url") val url: String,
+    @SerializedName("url") val url: String
 )

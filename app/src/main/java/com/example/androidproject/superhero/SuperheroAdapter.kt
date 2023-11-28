@@ -6,11 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.androidproject.R
 
 
-class SuperheroAdapter(private var superheroes: List<SuperHero> = emptyList()) :
+class SuperheroAdapter(
+     var superheroes: List<SuperHero> = emptyList(),
+    private val onSelectedItem: (String) -> Unit
+) :
     RecyclerView.Adapter<SuperheroViewHolder>() {
 
-    fun updateSuperheroList(superheroList: List<SuperHero>){
-        this.superheroes = superheroList
+    fun updateSuperheroList(superheroList: List<SuperHero>) {
+        superheroes = superheroList
         notifyDataSetChanged()
     }
 
@@ -22,7 +25,7 @@ class SuperheroAdapter(private var superheroes: List<SuperHero> = emptyList()) :
 
     override fun onBindViewHolder(holder: SuperheroViewHolder, position: Int) {
         val superhero = superheroes[position]
-        holder.bind(superhero)
+        holder.bind(superhero, onSelectedItem)
     }
 
     override fun getItemCount(): Int {

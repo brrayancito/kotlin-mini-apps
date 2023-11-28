@@ -1,5 +1,6 @@
 package com.example.androidproject.superhero
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidproject.databinding.ActivitySuperHeroBinding
+import com.example.androidproject.superhero.SuperheroDetailsActivity.Companion.EXTRA_ID
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,7 +41,9 @@ class SuperHeroActivity : AppCompatActivity() {
             override fun onQueryTextChange(newText: String?) = false
         })
 
-        superheroAdapter = SuperheroAdapter()
+        superheroAdapter =
+            SuperheroAdapter() { navigateToSuperheroDetails(it) }
+
         binding.rvSuperheroList.setHasFixedSize(true)
         binding.rvSuperheroList.layoutManager = LinearLayoutManager(this)
         binding.rvSuperheroList.adapter = superheroAdapter
@@ -54,13 +58,12 @@ class SuperHeroActivity : AppCompatActivity() {
 
             if (res.isSuccessful) {
                 val response: SuperheroDataResponse? = res.body()
-                Log.i("msg", response.toString())
-
                 if (response != null) {
-                runOnUiThread {
-                    superheroAdapter.updateSuperheroList(response.superheroes)
-                    binding.loading.isVisible = false
-                }
+                    runOnUiThread {
+                        Log.i("msg", response.toString())
+                        superheroAdapter.updateSuperheroList(response.superheroes)
+                        binding.loading.isVisible = false
+                    }
                 }
 
             } else {
@@ -72,9 +75,15 @@ class SuperHeroActivity : AppCompatActivity() {
 
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://superheroapi.com")
+            .baseUrl("https://superheroapi.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    private fun navigateToSuperheroDetails(id: String) {
+        val intent = Intent(this, SuperheroDetailsActivity::class.java)
+        intent.putExtra(EXTRA_ID, id)
+        startActivity(intent)
     }
 
 }
