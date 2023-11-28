@@ -51,6 +51,8 @@ class SuperheroDetailsActivity : AppCompatActivity() {
     private fun showSuperheroInf(superhero: SuperheroInfoResponse) {
         Picasso.get().load(superhero.image.url).into(binding.ivHero)
         binding.tvSuperheroName.text = superhero.name
+        binding.tvSuperheroRealName.text = superhero.biography.fullName
+        binding.tvPublisher.text = superhero.biography.publisher
         updateStats(superhero.powerstats)
     }
 
